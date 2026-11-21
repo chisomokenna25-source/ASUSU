@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Asusu – Learn a Nigerian language with a native speaker</title>
+<style>
+:root{
+  --bg:#ffffff; --ink:#1d1a45; --muted:#5d5a7d; --line:#e6e4f2;
+  --brand:#ff5a47; --brand-ink:#ffffff;
+  --yellow:#ffe08a; --green:#bfeccf; --peach:#ffd6c4; --lilac:#dcd6ff;
+  --surface:#ffffff; --pill:#f3f1fb;
+  --radius-lg:28px; --radius-md:18px; --radius-sm:999px;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#14122e; --ink:#f4f2ff; --muted:#b5b1d6; --line:#2c2955;
+    --surface:#1d1a45; --pill:#25224f;
+    --yellow:#5a4a12; --green:#17493a; --peach:#5a2d22; --lilac:#38327a;
+  }
+}
+*{box-sizing:border-box;margin:0}
+body{
+  background:var(--bg); color:var(--ink);
+  font-family:"Avenir Next","Nunito","Segoe UI",system-ui,sans-serif;
+  line-height:1.45; padding-bottom:110px;
+}
+.wrap{max-width:720px;margin:0 auto;padding:0 20px}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--brand);outline-offset:3px}
+
+header{display:flex;justify-content:space-between;align-items:center;padding:18px 0}
+.logo{font-size:2rem;font-weight:900;letter-spacing:-.04em;color:var(--brand)}
+.linkbtn{background:none;border:0;font:inherit;font-weight:700;color:var(--ink);cursor:pointer;padding:8px}
+
+/* hero */
+.hero h1{font-size:clamp(2.6rem,11vw,4.4rem);line-height:.98;letter-spacing:-.04em;font-weight:900;margin:12px 0 16px}
+.hero p{font-size:1.1rem;color:var(--muted);max-width:34ch}
+.search{
+  margin-top:26px;background:var(--pill);border-radius:var(--radius-lg);padding:12px;
+}
+.search form{display:flex;gap:10px;background:var(--surface);border-radius:var(--radius-sm);padding:8px 8px 8px 22px;align-items:center}
+.search input{flex:1;min-width:0;border:0;background:none;font:inherit;font-size:1.05rem;color:var(--ink);outline:none}
+.search input::placeholder{color:var(--muted)}
+.go{width:52px;height:52px;border-radius:50%;border:0;background:var(--brand);color:var(--brand-ink);cursor:pointer;display:grid;place-items:center}
+.chips{display:flex;gap:10px;overflow-x:auto;padding:14px 4px 4px;scrollbar-width:none}
+.chips::-webkit-scrollbar{display:none}
+.chip{
+  flex:none;border:2px solid transparent;background:var(--surface);color:var(--ink);
+  font:inherit;font-weight:700;padding:10px 18px;border-radius:var(--radius-sm);cursor:pointer;
+}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.modes{display:flex;gap:8px;margin:14px 0 0;flex-wrap:wrap}
+.modes .chip{background:transparent;border-color:var(--line);font-weight:600;padding:8px 14px;font-size:.92rem}
+.modes .chip[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+
+/* tutor list */
+.count{margin:34px 0 14px;font-weight:700;color:var(--muted)}
+.list{display:grid;gap:34px}
+@media(min-width:640px){.list{grid-template-columns:1fr 1fr}}
+.card .photo{
+  position:relative;aspect-ratio:1/1.05;border-radius:var(--radius-lg);overflow:hidden;
+  display:flex;align-items:flex-end;padding:20px;color:#fff;
+}
+.card .initial{
+  position:absolute;inset:0;display:grid;place-items:center;
+  font-size:7rem;font-weight:900;letter-spacing:-.06em;opacity:.28;
+}
+.card .photo::after{content:"";position:absolute;inset:0;background:linear-gradient(transparent 45%,rgba(10,8,40,.7))}
+.card .who{position:relative;z-index:1}
+.card .who h3{font-size:1.9rem;letter-spacing:-.03em;line-height:1.1}
+.card .who span{font-size:1rem}
+.heart{
+  position:absolute;top:14px;right:14px;z-index:2;width:44px;height:44px;border-radius:50%;
+  border:0;background:rgba(255,255,255,.92);color:#1d1a45;cursor:pointer;display:grid;place-items:center;
+}
+.heart[aria-pressed="true"]{color:var(--brand)}
+.heart[aria-pressed="true"] path{fill:currentColor}
+.meta{display:flex;justify-content:space-between;align-items:center;margin:12px 0 4px;gap:10px}
+.rating{font-weight:800;display:flex;gap:6px;align-items:center}
+.star{color:#ffb400}
+.badge{font-weight:700;font-size:.92rem;padding:6px 14px;border-radius:var(--radius-sm);background:var(--pill)}
+.badge.amb{background:var(--lilac)}
+.blurb{color:var(--muted)}
+.blurb b{color:var(--ink)}
+.price{margin-top:6px;font-weight:800}
+.price em{font-style:normal;color:var(--brand);font-weight:700;margin-left:8px}
+.trial{
+  margin-top:12px;width:100%;border:0;border-radius:var(--radius-sm);padding:14px;
+  background:var(--ink);color:var(--bg);font:inherit;font-weight:800;cursor:pointer;
+}
+.empty{padding:40px 0;text-align:center;color:var(--muted)}
+
+/* reviews */
+.reviews{margin-top:64px}
+.reviews h2,.become h2{font-size:clamp(2rem,8vw,3rem);letter-spacing:-.04em;line-height:1.02}
+.reviews .stars{color:#ffb400;font-size:1.8rem;letter-spacing:4px;margin-bottom:8px}
+.reviews > .wrap > p{color:var(--muted);margin-top:10px;font-size:1.1rem}
+.rail{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;padding:26px 20px 8px;margin:0 -20px;scrollbar-width:none}
+.rail::-webkit-scrollbar{display:none}
+.rev{flex:none;width:min(82%,340px);scroll-snap-align:start;border-radius:var(--radius-lg);padding:26px;display:flex;flex-direction:column;justify-content:space-between;min-height:300px}
+.rev:nth-child(1){background:var(--yellow)}
+.rev:nth-child(2){background:var(--green)}
+.rev:nth-child(3){background:var(--lilac)}
+.rev:nth-child(4){background:var(--peach)}
+.rev .t{font-weight:800}
+.rev .t small{display:block;font-weight:500;color:var(--muted)}
+.rev p{font-size:1.1rem;font-weight:700;margin:18px 0;line-height:1.4}
+.rev .by{align-self:flex-start;background:var(--surface);border-radius:var(--radius-sm);padding:8px 16px;font-weight:700}
+.rev .by .star{margin-left:6px}
+
+/* become a teacher */
+.become{margin:64px 0 0;background:var(--peach);border-radius:var(--radius-lg);padding:32px 28px}
+.become p{margin:14px 0 22px;font-size:1.1rem}
+.become button{border:0;border-radius:var(--radius-sm);background:var(--ink);color:var(--bg);font:inherit;font-weight:800;padding:16px 28px;width:100%;cursor:pointer}
+
+footer{padding:40px 0;color:var(--muted);font-size:.9rem}
+
+/* sticky bar */
+.sticky{position:fixed;left:0;right:0;bottom:0;padding:14px 20px 20px;pointer-events:none;z-index:10}
+.sticky button{
+  pointer-events:auto;display:flex;justify-content:space-between;align-items:center;width:100%;max-width:680px;margin:0 auto;
+  background:var(--surface);color:var(--ink);border:10px solid #ffc9c4;border-radius:var(--radius-sm);
+  padding:6px 6px 6px 20px;font:inherit;font-weight:800;font-size:1.05rem;cursor:pointer;
+}
+.sticky .go{width:48px;height:48px}
+
+/* dialogs */
+dialog{border:0;border-radius:var(--radius-lg);padding:28px;width:min(92vw,440px);background:var(--surface);color:var(--ink)}
+dialog::backdrop{background:rgba(20,18,46,.6)}
+dialog h2{font-size:1.7rem;letter-spacing:-.03em;margin-bottom:6px}
+dialog p{color:var(--muted);margin-bottom:16px}
+label{display:block;font-weight:700;margin:12px 0 6px}
+input.f,select.f,textarea.f{width:100%;font:inherit;padding:13px 16px;border-radius:var(--radius-md);border:2px solid var(--line);background:var(--bg);color:var(--ink)}
+.row{display:flex;gap:10px;margin-top:20px}
+.row button{flex:1;border:0;border-radius:var(--radius-sm);padding:14px;font:inherit;font-weight:800;cursor:pointer}
+.row .p{background:var(--brand);color:#fff}
+.row .s{background:var(--pill);color:var(--ink)}
+.ok{display:none;padding:18px;border-radius:var(--radius-md);background:var(--green);font-weight:700;margin-top:14px}
+@media (prefers-reduced-motion: reduce){*{scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <span class="logo">asusu</span>
+    <button class="linkbtn" id="openTeach">Teach with us</button>
+  </header>
+
+  <section class="hero">
+    <h1>Learn a Nigerian language from someone who speaks it at home</h1>
+    <p>Online or in person. Your first lesson is free.</p>
+    <div class="search">
+      <form id="searchForm" role="search">
+        <input id="q" type="search" placeholder='Try "Igbo for beginners"' aria-label="What do you want to learn?">
+        <button class="go" aria-label="Search"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg></button>
+      </form>
+      <div class="chips" id="langChips"></div>
+    </div>
+    <div class="modes" id="modeChips"></div>
+  </section>
+
+  <p class="count" id="count" aria-live="polite"></p>
+  <section class="list" id="list"></section>
+
+  <section class="reviews">
+    <div class="wrap" style="padding:0">
+      <div class="stars" aria-label="5 stars">★★★★★</div>
+      <h2>The perfect match</h2>
+      <p>Learners tell us when a tutor clicks. Here is what they say.</p>
+    </div>
+    <div class="rail" id="rail"></div>
+  </section>
+
+  <section class="become">
+    <h2>You can become a great tutor too</h2>
+    <p>Share your language, set your own price, and teach on your schedule.</p>
+    <button id="openTeach2">Apply to teach</button>
+  </section>
+
+  <footer>Prototype with sample tutors and reviews. Replace them with your own.</footer>
+</div>
+
+<div class="sticky"><button id="stickySearch"><span>What do you want to learn?</span><span class="go"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg></span></button></div>
+
+<dialog id="trialDlg">
+  <h2 id="trialTitle">Book your free lesson</h2>
+  <p id="trialSub"></p>
+  <form id="trialForm">
+    <label for="tName">Your name</label>
+    <input class="f" id="tName" required>
+    <label for="tWhats">WhatsApp number</label>
+    <input class="f" id="tWhats" type="tel" required>
+    <label for="tTime">Preferred time</label>
+    <select class="f" id="tTime"><option>Weekday mornings</option><option>Weekday evenings</option><option>Weekends</option></select>
+    <div class="row"><button type="button" class="s" data-close>Cancel</button><button class="p">Book free lesson</button></div>
+  </form>
+  <div class="ok" id="trialOk"></div>
+</dialog>
+
+<dialog id="teachDlg">
+  <h2>Apply to teach</h2>
+  <p>Tell us about yourself. We reply within 2 days.</p>
+  <form id="teachForm">
+    <label for="aName">Your name</label>
+    <input class="f" id="aName" required>
+    <label for="aLang">Language you teach</label>
+    <select class="f" id="aLang"></select>
+    <label for="aAbout">About your teaching</label>
+    <textarea class="f" id="aAbout" rows="3"></textarea>
+    <div class="row"><button type="button" class="s" data-close>Cancel</button><button class="p">Send application</button></div>
+  </form>
+  <div class="ok" id="teachOk">Application sent. We will contact you soon.</div>
+</dialog>
+
+<script>
+const LANGS=["Igbo","Yoruba","Hausa","Pidgin"];
+const MODES=["Any","Online","In person"];
+const COLORS=["#7b61ff","#0f8f63","#e2532e","#2a6fdb","#b3389a","#c98a00"];
+const TUTORS=[
+ {name:"Adaeze",lang:"Igbo",city:"Enugu",modes:["Online","In person"],rating:5,reviews:34,badge:"Ambassador",title:"Standard Igbo for beginners and diaspora kids",price:5000},
+ {name:"Chidera",lang:"Igbo",city:"Lagos",modes:["Online"],rating:5,reviews:21,badge:"Super tutor",title:"Conversational Igbo with proverbs and everyday phrases",price:6000},
+ {name:"Tunde",lang:"Yoruba",city:"Ibadan",modes:["Online","In person"],rating:5,reviews:28,badge:"Super tutor",title:"Yoruba speaking and tone marks made simple",price:5500},
+ {name:"Folake",lang:"Yoruba",city:"Lagos",modes:["Online"],rating:4.9,reviews:12,badge:"",title:"Yoruba for professionals and returning Nigerians",price:7000},
+ {name:"Hauwa",lang:"Hausa",city:"Kano",modes:["Online"],rating:5,reviews:19,badge:"Ambassador",title:"Hausa for travel, work and family",price:5000},
+ {name:"Ebi",lang:"Pidgin",city:"Warri",modes:["Online","In person"],rating:5,reviews:9,badge:"",title:"Naija Pidgin for fun, films and fast conversations",price:4000}
+];
+const REVIEWS=[
+ {t:"Adaeze",s:"Igbo tutor",p:"My daughter now greets her grandmother in Igbo. Adaeze is patient and the lessons feel like play.",by:"Ngozi"},
+ {t:"Tunde",s:"Yoruba tutor",p:"I finally understand tone marks. He explains clearly, is always on time and checks my progress.",by:"Daniel"},
+ {t:"Hauwa",s:"Hausa tutor",p:"I moved to Kano for work and was speaking daily Hausa within a month.",by:"Grace"},
+ {t:"Chidera",s:"Igbo tutor",p:"The proverbs and stories made every class fun. I look forward to Thursdays.",by:"Emeka"}
+];
+const state={lang:"All",mode:"Any",q:"",fav:new Set()};
+const $=s=>document.querySelector(s);
+
+function chip(label,group,pressed){
+  const b=document.createElement("button");b.className="chip";b.type="button";b.textContent=label;
+  b.setAttribute("aria-pressed",pressed);b.onclick=()=>{state[group]=label;draw()};return b;
+}
+function drawChips(){
+  const lc=$("#langChips");lc.replaceChildren(...["All",...LANGS].map(l=>chip(l,"lang",state.lang===l)));
+  const mc=$("#modeChips");mc.replaceChildren(...MODES.map(m=>chip(m,"mode",state.mode===m)));
+}
+const heartSvg='<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 21s-8-5.2-8-11a4.6 4.6 0 0 1 8-3 4.6 4.6 0 0 1 8 3c0 5.800-8 11-8 11z"/></svg>';
+function draw(){
+  drawChips();
+  const q=state.q.trim().toLowerCase();
+  const res=TUTORS.filter(t=>
+    (state.lang==="All"||t.lang===state.lang)&&
+    (state.mode==="Any"||t.modes.includes(state.mode))&&
+    (!q||(t.name+t.lang+t.city+t.title).toLowerCase().includes(q)));
+  $("#count").textContent=res.length?res.length+" tutor"+(res.length>1?"s":"")+" available":"";
+  const list=$("#list");list.replaceChildren();
+  if(!res.length){list.innerHTML='<p class="empty">No tutors match yet. Try another language or clear the search.</p>';return}
+  res.forEach(t=>{
+    const i=TUTORS.indexOf(t),c=COLORS[i%COLORS.length];
+    const el=document.createElement("article");el.className="card";
+    el.innerHTML=`
+     <div class="photo" style="background:${c}">
+       <div class="initial" aria-hidden="true">${t.name[0]}</div>
+       <button class="heart" aria-label="Save ${t.name}" aria-pressed="${state.fav.has(t.name)}">${heartSvg}</button>
+       <div class="who"><h3>${t.name}</h3><span>${t.city} (${t.modes.map(m=>m.toLowerCase()).join(" &amp; ")})</span></div>
+     </div>
+     <div class="meta"><span class="rating"><span class="star">★</span>${t.rating} (${t.reviews} reviews)</span>${t.badge?`<span class="badge ${t.badge==="Ambassador"?"amb":""}">${t.badge}</span>`:""}</div>
+     <p class="blurb"><b>${t.lang}</b> – ${t.title}</p>
+     <p class="price">₦${t.price.toLocaleString()}/h<em>1st lesson free</em></p>
+     <button class="trial">Book free lesson</button>`;
+    el.querySelector(".heart").onclick=e=>{
+      const b=e.currentTarget;state.fav.has(t.name)?state.fav.delete(t.name):state.fav.add(t.name);
+      b.setAttribute("aria-pressed",state.fav.has(t.name));
+    };
+    el.querySelector(".trial").onclick=()=>openTrial(t);
+    list.append(el);
+  });
+}
+$("#rail").innerHTML=REVIEWS.map(r=>`<article class="rev"><div class="t">${r.t}<small>${r.s}</small></div><p>${r.p}</p><span class="by">${r.by}<span class="star">★★★★★</span></span></article>`).join("");
+$("#aLang").innerHTML=LANGS.map(l=>`<option>${l}</option>`).join("")+"<option>Other</option>";
+
+$("#searchForm").onsubmit=e=>{e.preventDefault();state.q=$("#q").value;draw();$("#count").scrollIntoView({behavior:"smooth"})};
+$("#q").oninput=e=>{state.q=e.target.value;draw()};
+$("#stickySearch").onclick=()=>{window.scrollTo({top:0,behavior:"smooth"});setTimeout(()=>$("#q").focus(),400)};
+
+const trial=$("#trialDlg"),teach=$("#teachDlg");let current=null;
+function openTrial(t){
+  current=t;$("#trialTitle").textContent="Book a free lesson with "+t.name;
+  $("#trialSub").textContent=t.lang+" · "+t.city;
+  $("#trialForm").style.display="";$("#trialOk").style.display="none";trial.showModal();
+}
+$("#trialForm").onsubmit=e=>{
+  e.preventDefault();e.target.style.display="none";
+  const ok=$("#trialOk");ok.textContent="Request sent. "+current.name+" will message "+$("#tName").value+" on WhatsApp to confirm your free lesson.";ok.style.display="block";
+};
+function openTeach(){$("#teachForm").style.display="";$("#teachOk").style.display="none";teach.showModal()}
+$("#openTeach").onclick=openTeach;$("#openTeach2").onclick=openTeach;
+$("#teachForm").onsubmit=e=>{e.preventDefault();e.target.style.display="none";$("#teachOk").style.display="block"};
+document.querySelectorAll("[data-close]").forEach(b=>b.onclick=()=>b.closest("dialog").close());
+draw();
+</script>
+</body>
+</html>
