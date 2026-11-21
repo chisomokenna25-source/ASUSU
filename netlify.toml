@@ -1,0 +1,11 @@
+# Plain static site: a single self-contained HTML page, no build step required.
+[build]
+  publish = "."
+  command = ""
+
+# The page is named Index.html.asusu.html rather than index.html,
+# so serve it at the site root.
+[[redirects]]
+  from = "/"
+  to = "/Index.html.asusu.html"
+  status = 200
